@@ -36,7 +36,7 @@ def sym_solve(cov_a: np.ndarray, mat_b: np.ndarray) -> np.ndarray:
     Computes `inv(cov_a) @ mat_b` using Cholesky factorization (`cho_factor`
     and `cho_solve`) instead of explicit matrix inversion.
     """
-    c, lower = cho_factor(cov_a, lower=True, check_finite=True)
+    c, lower = cho_factor(cov_a, lower=True, check_finite=False)
     return cho_solve((c, lower), mat_b, check_finite=False)
 
 

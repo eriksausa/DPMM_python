@@ -79,7 +79,7 @@ def partition_mmse_bound(
         + gammaln(n_objects)
         - gammaln(n_objects - k_vals + 1.0)
     )
-    log_den = gammaln(alpha_dp + n_objects) - gammaln(alpha_dp)
+    log_den = gammaln(alpha_dp + n_objects) - gammaln(alpha_dp + 1.0)
     partition_p = np.exp(log_num - log_den)
 
     mse_k = (vv1 * vu1) / (vu1 + vv1) + ((vt1 * vv1) / (vv1 + vu1)) * (
