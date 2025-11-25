@@ -62,7 +62,7 @@ def estimate_epsilon_knee(y: np.ndarray, min_pts: int, max_pts: int) -> float:
         first_pt = coords[0]
         line_vec = coords[-1] - first_pt
         line_norm = np.linalg.norm(line_vec)
-        if line_norm < 1e-6:
+        if line_norm < 1e-12:
             knees.append(float(k_distances[-1]))
             continue
 

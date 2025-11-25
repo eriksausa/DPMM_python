@@ -60,7 +60,7 @@ class DPMMGibbsSciPy:
         mean_theta: np.ndarray,
         alpha_dp: float = 1.0,
         n_iters: int = 800,
-        burn_in: int = 100,
+        burn_in: int = 199,
         theta_first: bool = True,
     ):
         self.var_v = np.asarray(var_v, dtype=float)
@@ -231,7 +231,7 @@ class DPMMGibbsPyTorch:
         mean_theta: np.ndarray,
         alpha_dp: float = 1.0,
         n_iters: int = 800,
-        burn_in: int = 100,
+        burn_in: int = 199,
         device: str = "cpu",
     ):
         if not TORCH_AVAILABLE:
