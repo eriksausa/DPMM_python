@@ -70,7 +70,7 @@ class KMeansEstimator:
         var_u: np.ndarray,
         var_theta: np.ndarray,
         mean_theta: np.ndarray,
-        n_replicates: int = 3,
+        n_replicates: int = 10,
     ):
         self.var_v = np.asarray(var_v, dtype=float)
         self.var_u = np.asarray(var_u, dtype=float)

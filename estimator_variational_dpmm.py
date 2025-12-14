@@ -98,7 +98,7 @@ class VariationalDPMMEstimator:
                 weight_concentration_prior_type="dirichlet_process",
                 weight_concentration_prior=self.alpha_dp,
                 mean_prior=self.mean_theta,
-                max_iter=100,
+                max_iter=200,
                 n_init=3,
                 random_state=random_state,
             )
