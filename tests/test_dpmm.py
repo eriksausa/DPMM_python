@@ -21,6 +21,10 @@ from data_generation import (
     sample_crp_tables,
     sym_solve,
 )
+from estimator_dbscan import DBSCANEstimator, estimate_epsilon_knee
+from estimator_gibbs import DPMMGibbsSciPy
+from estimator_kmeans import KMeansEstimator
+from estimator_variational_dpmm import AgglomerativeEstimator, VariationalDPMMEstimator
 
 
 def test_sym_solve_matches_explicit_inverse():
@@ -56,3 +60,21 @@ def test_mmse_bounds_ordering():
     b = compute_all_bounds(var_theta, var_u, var_v, n_objects=20, alpha_dp=0.5)
     assert b["mmse_known_theta"] < b["mmse_partition_bound"] < b["mmse_unknown_theta"]
     assert b["cg_partition_bound_db"] > 0.0
+
+
+def test_classical_estimators_shapes():
+    rng = np.random.default_rng(7)
+    v = np.eye(2)
+    vt = 5.0 * np.eye(2)
+    m = np.zeros(2)
+    data = generate_dpmm_data(12, 0.5, m, v, v, vt, rng=rng)
+
+    for est in [
+        DBSCANEstimator(v, v, vt, m, alpha_dp=0.5),
+        KMeansEstimator(v, v, vt, m),
+        VariationalDPMMEstimator(v, v, vt, m, alpha_dp=0.5),
+        AgglomerativeEstimator(v, v, vt, m),
+    ]:
+        x_hat, lbl = est.fit_predict(data.y)
+        assert x_hat.shape == (12, 2)
+        assert lbl.shape == (12,)
