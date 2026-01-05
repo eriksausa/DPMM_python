@@ -62,6 +62,15 @@ def test_mmse_bounds_ordering():
     assert b["cg_partition_bound_db"] > 0.0
 
 
+def test_dbscan_all_outlier_reindexing_and_tight_clusters():
+    c, m = assign_outliers_and_reindex(np.array([-1, -1, -1]))
+    assert np.array_equal(c, np.array([0, 1, 2]))
+    assert np.array_equal(m, np.array([1, 1, 1]))
+    tight_y = np.array([[0.0, 0.0], [1e-6, 0.0], [2e-6, 1e-6], [1.0, 1.0]])
+    eps = estimate_epsilon_knee(tight_y, 1, 2)
+    assert eps > 1e-8
+
+
 def test_classical_estimators_shapes():
     rng = np.random.default_rng(7)
     v = np.eye(2)

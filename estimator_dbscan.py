@@ -73,7 +73,7 @@ def estimate_epsilon_knee(y: np.ndarray, min_pts: int, max_pts: int) -> float:
         knees.append(float(k_distances[int(np.argmax(perp_dist))]))
 
     eps = float(np.mean(knees)) if knees else 1.0
-    return eps if eps > 1e-4 else 1.0
+    return eps if eps > 1e-8 else 1.0
 
 
 def dbscan_kdtree(y: np.ndarray, epsilon: float, min_pts: int) -> np.ndarray:
