@@ -89,7 +89,7 @@ class DPMMGibbsSciPy:
 
         self.chol_u = cholesky(self.var_u, lower=True)
         self.chol_u_factor = cho_factor(self.var_u, lower=True)
-        self.log_det_u = 1.0 * float(np.sum(np.log(np.diag(self.chol_u))))
+        self.log_det_u = 2.0 * float(np.sum(np.log(np.diag(self.chol_u))))
 
     def _init_dbscan(self, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
         n_samples = y.shape[0]

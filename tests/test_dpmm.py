@@ -87,3 +87,16 @@ def test_classical_estimators_shapes():
         x_hat, lbl = est.fit_predict(data.y)
         assert x_hat.shape == (12, 2)
         assert lbl.shape == (12,)
+
+
+def test_gibbs_sampler_positive_clustering_gain():
+    rng = np.random.default_rng(123)
+    v = np.eye(2)
+    vt = 5.0 * np.eye(2)
+    m = np.zeros(2)
+    data = generate_dpmm_data(16, 0.25, m, v, v, vt, rng=rng)
+    gibbs = DPMMGibbsSciPy(v, v, vt, m, alpha_dp=0.25, n_iters=180, burn_in=60)
+    x_hat, lbl = gibbs.fit_predict(data.y, rng=rng)
+    assert x_hat.shape == (16, 2)
+    assert lbl.shape == (16,)
+    assert immse(x_hat, data.x) < immse(data.y, data.x)
