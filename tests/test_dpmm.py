@@ -87,6 +87,8 @@ def test_classical_estimators_shapes():
         x_hat, lbl = est.fit_predict(data.y)
         assert x_hat.shape == (12, 2)
         assert lbl.shape == (12,)
+        x1, l1 = est.fit_predict(data.y[:1])
+        assert x1.shape == (1, 2) and l1.shape == (1,)
 
 
 def test_gibbs_sampler_positive_clustering_gain():

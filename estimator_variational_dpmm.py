@@ -125,7 +125,7 @@ class AgglomerativeEstimator:
         var_u: np.ndarray,
         var_theta: np.ndarray,
         mean_theta: np.ndarray,
-        threshold_scale: float = 1.5,
+        threshold_scale: float = 2.0,
     ):
         self.var_v = np.asarray(var_v, dtype=float)
         self.var_u = np.asarray(var_u, dtype=float)
