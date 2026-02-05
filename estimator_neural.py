@@ -77,7 +77,7 @@ if TORCH_AVAILABLE:
                 y = y.unsqueeze(0)
             h = self.input_proj(y)
             h = self.encoder(h)
-            out = 0.70 * self.skip(y) + 0.30 * self.output_head(h)
+            out = 0.85 * self.skip(y) + 0.15 * self.output_head(h)
             return out.squeeze(0) if single_set else out
 
 
