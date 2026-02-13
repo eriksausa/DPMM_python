@@ -24,6 +24,7 @@ from data_generation import (
 from estimator_dbscan import DBSCANEstimator, estimate_epsilon_knee
 from estimator_gibbs import DPMMGibbsSciPy
 from estimator_kmeans import KMeansEstimator
+from estimator_neural import NeuralDenoiserSuite
 from estimator_variational_dpmm import AgglomerativeEstimator, VariationalDPMMEstimator
 
 
@@ -102,3 +103,16 @@ def test_gibbs_sampler_positive_clustering_gain():
     assert x_hat.shape == (16, 2)
     assert lbl.shape == (16,)
     assert immse(x_hat, data.x) < immse(data.y, data.x)
+
+
+def test_neural_denoiser_permutation_equivariance():
+    rng = np.random.default_rng(99)
+    v = np.eye(2)
+    vt = 5.0 * np.eye(2)
+    m = np.zeros(2)
+    suite = NeuralDenoiserSuite(v, v, vt, m, alpha_dp=0.5, max_n=8).fit(train_steps=20, batch_size=8, rng=rng)
+    data = generate_dpmm_data(8, 0.5, m, v, v, vt, rng=rng)
+    perm = np.array([3, 0, 5, 1, 7, 2, 6, 4])
+    out_orig = suite.predict_attention(data.y)
+    out_perm = suite.predict_attention(data.y[perm])
+    np.testing.assert_allclose(out_orig[perm], out_perm, rtol=1e-4, atol=1e-4)

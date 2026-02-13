@@ -116,7 +116,7 @@ class NeuralDenoiserSuite:
 
     def fit(
         self,
-        train_steps: int = 150,
+        train_steps: int = 250,
         batch_size: int = 32,
         lr: float = 3e-3,
         rng: Optional[np.random.Generator] = None,
