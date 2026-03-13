@@ -156,7 +156,7 @@ def run_modular_benchmark(
     mse_records = {k: np.zeros((num_alphas, iterations), dtype=float) for k in method_keys}
     mse_bound = np.zeros(num_alphas, dtype=float)
 
-    rng = np.random.default_rng(1000)
+    rng = np.random.default_rng(2026)
 
     for i, alpha_dp in enumerate(alpha_arr):
         gibbs_est = DPMMGibbsSciPy(
