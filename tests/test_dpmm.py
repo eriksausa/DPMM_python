@@ -26,6 +26,7 @@ from estimator_gibbs import DPMMGibbsSciPy
 from estimator_kmeans import KMeansEstimator
 from estimator_neural import NeuralDenoiserSuite
 from estimator_variational_dpmm import AgglomerativeEstimator, VariationalDPMMEstimator
+from dashboard_runner import evaluate_single_realization
 
 
 def test_sym_solve_matches_explicit_inverse():
@@ -116,3 +117,10 @@ def test_neural_denoiser_permutation_equivariance():
     out_orig = suite.predict_attention(data.y)
     out_perm = suite.predict_attention(data.y[perm])
     np.testing.assert_allclose(out_orig[perm], out_perm, rtol=1e-4, atol=1e-4)
+
+
+def test_dashboard_runner_single_realization():
+    res = evaluate_single_realization(max_objects=8, dim=2, alpha_dp=0.5, gibbs_iters=60, burn_in=20, seed=42)
+    assert "metrics" in res
+    assert "gibbs_dpmm" in res["metrics"]
+    assert res["metrics"]["gibbs_dpmm"]["x_hat"].shape == (8, 2)

@@ -209,7 +209,7 @@ def run_modular_benchmark(
 
     if save_plot_path:
         fig = plot_benchmark_curves(summary)
-        fig.savefig(save_plot_path, dpi=120, bbox_inches="tight")
+        fig.savefig(save_plot_path, dpi=180, bbox_inches="tight")
         plt.close(fig)
 
     return summary
