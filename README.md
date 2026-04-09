@@ -17,3 +17,29 @@ Modular Python (`SciPy`, `PyTorch`, `scikit-learn`, `Streamlit`) implementation 
 | `estimator_variational_dpmm.py` | Mean-Field Coordinate Ascent Variational Inference (`BayesianGaussianMixture` with Dirichlet Process prior) and parameter-free Ward `AgglomerativeClustering` LMMSE estimators. |
 | `estimator_neural.py` | Permutation-equivariant Multi-Head `SetAttentionDenoiser` (`nn.TransformerEncoderLayer`) and pointwise `ResidualMLPDenoiser` (`nn.Module`). |
 | `dashboard_runner.py` | Unified CLI Monte Carlo benchmark runner (reproducing Thesis Figures 10, 11, 12a/b, 13a/b) and 3-tab interactive `Streamlit` cockpit. |
+## Quickstart & Usage
+
+### 1. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Run the Interactive Streamlit Cockpit
+```bash
+streamlit run dashboard_runner.py
+```
+
+### 3. Run Command-Line Monte Carlo Benchmarks
+* **Sweep Concentration Parameter $\alpha$ (Thesis Figures 12b & 13b)**:
+  ```bash
+  python dashboard_runner.py --mode alpha --max-objects 20 --iterations 30 --save-plot fig12b_13b.png
+  ```
+* **Sweep Number of Objects $N$ (Thesis Figures 11, 12a & 13a)**:
+  ```bash
+  python dashboard_runner.py --mode n-sweep --alpha 0.5 --max-objects 30 --iterations 30 --save-plot fig12a_13a.png
+  ```
+
+### 4. Run Unit Test Suite
+```bash
+pytest -v
+```
