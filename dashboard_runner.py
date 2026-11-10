@@ -13,7 +13,7 @@ Orchestrates all modular DPMM files:
 - `estimator_gibbs.py`            (Section 5.2.3 Algorithm 3 MacEachern Gibbs Sampler: SciPy & PyTorch)
 - `estimator_dbscan.py`           (Section 6.3.2 Modified Scenario 4 with DBSCAN: MSE^(DB)_MC)
 - `estimator_kmeans.py`           (Section 6.3.2 Modified Scenario 4 with K-Means++: MSE^(K)_MC)
-- `estimator_variational_dpmm.py` (Section 1.2 / Ch. 7 CAVI / Variational DPMM [15] & Ward Agglomerative)
+- `estimator_variational_dFpmm.py` (Section 1.2 / Ch. 7 CAVI / Variational DPMM [15] & Ward Agglomerative)
 - `estimator_neural.py`           (PyTorch Set-Attention Transformer & Pointwise Residual MLP)
 
 How to Run from VS Code Terminal:
@@ -88,12 +88,12 @@ THESIS_METADATA = {
 }
 
 METHOD_METADATA = [
-    ("gibbs_dpmm", "Scenario 3: Your DPMM Gibbs (Alg. 3)", "#1b9e77", "-o", 2.4),
+    ("gibbs_dpmm", "Proposed DPMM Gibbs (Alg. 3)", "#1b9e77", "-o", 2.4),
     ("sklearn_vi_dpmm", "Variational DPMM (CAVI / Sklearn BGMM)", "#d95f02", "--s", 1.8),
-    ("sklearn_kmeans", "Scenario 4 Mod: K-Means++ (Oracle K)", "#7570b3", "-.^", 1.8),
+    ("sklearn_kmeans", "K-Means++ (Oracle K)", "#7570b3", "-.^", 1.8),
     ("pytorch_set_attention", "PyTorch Set-Attention DNN", "#e7298a", "-v", 1.8),
-    ("sklearn_agglomerative", "Scenario 4 Mod: Agglomerative (Ward)", "#66a61e", ":P", 1.6),
-    ("sklearn_dbscan", "Scenario 4 Mod: DBSCAN (k-NN Knee)", "#e6ab02", "--d", 1.6),
+    ("sklearn_agglomerative", "Agglomerative (Ward)", "#66a61e", ":P", 1.6),
+    ("sklearn_dbscan", "DBSCAN (k-NN Knee)", "#e6ab02", "--d", 1.6),
     ("pytorch_pointwise_mlp", "PyTorch Pointwise MLP (Scenario 1 Limit)", "#a6761d", ":x", 1.6),
 ]
 
@@ -101,7 +101,7 @@ METHOD_METADATA = [
 def evaluate_single_realization(
     max_objects: int = 20,
     dim: int = 2,
-    alpha_dp: float = 1.0,
+    alpha_dp: float = 1.5,
     sigma_theta_sq: float = 5.0,
     gibbs_iters: int = 400,
     burn_in: int = 150,
@@ -395,9 +395,9 @@ def plot_single_realization_2d(single_res: Dict[str, object]) -> plt.Figure:
 
     fig, axes = plt.subplots(1, 3, figsize=(14, 4.4), sharex=True, sharey=True)
     panels = [
-        ("gibbs_dpmm", "Scenario 3: Your DPMM Gibbs (Alg. 3)"),
+        ("gibbs_dpmm", "Proposed DPMM Gibbs (Alg. 3)"),
         ("sklearn_vi_dpmm", "CAVI / Sklearn Variational DPMM"),
-        ("sklearn_kmeans", "Scenario 4 Mod: K-Means++"),
+        ("sklearn_kmeans", " K-Means++"),
     ]
 
     for ax, (key, title) in zip(axes, panels):
